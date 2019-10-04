@@ -4,8 +4,12 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const passport = require('passport')
 const cookieSession = require('cookie-session')
-
+var mongoose = require('mongoose')
+//require('dotenv').config()
 require('./services/passport')
+require('./models/users')
+
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true})
 
 const app = express()
 
@@ -21,6 +25,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 require('./routes/authRoutes')(app)
+require('./routes/patientRoutes')(app)
 
 const PORT = 5000;
 app.listen(PORT, () => {

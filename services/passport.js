@@ -1,13 +1,19 @@
 const passport = require('passport');
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const keys = require('../config/keys')
+var mongoose = require('mongoose')
+require('../models/users')
+require('../models/patients')
+
+const User = mongoose.model('users')
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  done(null, id);
+  User.findById(id)
+  .then(user => done(null, user))
 });
 
 passport.use(new GoogleStrategy({
@@ -16,13 +22,12 @@ passport.use(new GoogleStrategy({
   callbackURL: '/auth/google/callback',
   proxy: true
 },
-function(request, accessToken, refreshToken, profile, done) {
-  // asynchronous verification, for effect...
-  
-  process.nextTick(function () {
-  console.log(profile.id)
-    
-    return done(null, profile);
-  });
+async (request, accessToken, refreshToken, profile, done) => {
+  const existingUser = await User.findOne({googleId: profile.id})
+  console.log(pt)
+  existingUser 
+    ? done(null, existingUser)
+    : await done(null, new User({ googleId: profile.id }).save())
 }
 ));
+

@@ -31,15 +31,13 @@ class Header extends React.Component {
     return (
       <div>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="/home">
-            {'Hospital Administration System 1.0'}
+          <Navbar.Brand href={this.state.user ? '/dashboard' : '/'}>
+            Hospital Administration System 1.0
           </Navbar.Brand>
-         <Nav className="justify-content-end">
+          <Nav style={{testAlign: "right"}}>
             {displayUser()}
-          </Nav> 
-        
-            
-    
+          </Nav>
+          
         </Navbar>
       </div>
     )
