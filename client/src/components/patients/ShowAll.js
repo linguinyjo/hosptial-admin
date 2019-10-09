@@ -23,7 +23,7 @@ class ShowAll extends React.Component {
     const pts = this.state.ptData
     return pts.map(pt => {
       return (
-        <div key={pt['nhs_number']}>{pt['first_name']} {pt['last_name']} {pt['dob']} {pt['gender']} {pt['nhs_number']}</div>
+        <div key={pt['nhs_number']}>{pt['first_name']} {pt['last_name']} {pt['dob']} {pt['gender']} {pt['email']} {pt['nhs_number']}</div>
       )
     })
   }

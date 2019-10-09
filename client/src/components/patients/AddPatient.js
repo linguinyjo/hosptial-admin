@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-class Basic extends React.Component {
+class AddPatient extends React.Component {
   constructor(){
     super()
     this.state = {
@@ -28,16 +28,14 @@ class Basic extends React.Component {
           //   return errors;
           // }}
           onSubmit={async (values, { setSubmitting }) => {
-            const response = await axios.get(
-              '/api/find_patient', {
-                params: {
-                  first_name: values.firstName,
-                  last_name: values.lastName,
-                  gender: values.gender,
-                  dob: values.dob,
-                  email: values.email,
-                  nhs_number: values.nhs
-                }
+            const response = await axios.post(
+              '/api/add_patient', {
+                first_name: values.firstName,
+                last_name: values.lastName,
+                gender: values.gender,
+                dob: values.dob,
+                email: values.email,
+                nhs_number: values.nhs
               })
             this.setState({searchResult: response.data})
             setSubmitting(false)
@@ -73,4 +71,4 @@ class Basic extends React.Component {
   }
 }
   
-export default Basic;
+export default AddPatient;
