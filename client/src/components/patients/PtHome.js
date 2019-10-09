@@ -7,6 +7,7 @@ const PatientHome = () => {
       <div><a href="/find_patient">Find Patient</a></div>
       <div><a href="/">Add Patient</a></div>
       <div><a href="/">Edit Patient</a></div>
+      <div><a href="/show_all">Show all</a></div>
     </div>
   )
 }

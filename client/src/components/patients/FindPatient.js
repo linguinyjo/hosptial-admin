@@ -1,11 +1,17 @@
 import React from 'react'
 import axios from 'axios'
+import Basic from './patientForm'
 
 class FindPatient extends React.Component {
-  state = {
-    ptData: []
+  constructor(props) {
+    super()
+    this.state = {
+      ptData: []
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  
   componentDidMount() {
     this.fetchData()
   }
@@ -22,20 +28,21 @@ class FindPatient extends React.Component {
         <div>{pt['first_name']} {pt['last_name']} {pt['dob']} {pt['gender']} {pt['nhs_number']}</div>
       )
     })
+  }
 
+  handleSubmit(event) {
+    alert(this.state.firstName)
+  }
+
+  handleChange(event) {
+    console.log(this.state.firstName)
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
-    console.log(this.state.ptData.length )
     return (
       <div>
-        <form>
-          <input />
-        </form>
-        <div>
-          <h3>All patients:</h3>
-          {this.state.ptData.length ? this.renderData() : null}
-        </div>
+        <Basic />
       </div>
     )
   }
