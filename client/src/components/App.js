@@ -6,8 +6,9 @@ import Dashboard from './Dashboard'
 import PtHome from './patients/PtHome'
 import ShowAll from './patients/ShowAll'
 import AddPatient from './patients/AddPatient'
+import FindPatient from './patients/FindPatient'
+import EditPatient from './patients/EditPatient'
 import { BrowserRouter, Route } from 'react-router-dom'
-import FindPatient from './patients/FindPatient';
 
 class App extends React.Component {
   state = {
@@ -31,8 +32,8 @@ class App extends React.Component {
           <Route exact path="/patients" component={PtHome}/>
           <Route exact path="/find_patient" component={FindPatient}/>
           <Route exact path="/add_patient" component={AddPatient}/>
+          <Route exact path="/edit_patient" component={EditPatient}/>
           <Route exact path="/show_all" component={ShowAll}/>
-
         </div>
       )
     }

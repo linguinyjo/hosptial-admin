@@ -25,7 +25,20 @@ module.exports = app => {
     for(let key in req.body) {
       if(req.body[key]) newPatient[key] = req.body[key] 
     }
-    console.log(newPatient)
     new Patient(newPatient).save()
+  })
+
+  app.post('/api/edit_patient', async (req, res) => {
+    const Patient = mongoose.model('patients')
+    const currentPatient = await Patient.findOne({ nhs_number: req.body['nhs_number'] })
+    let newDetails = {
+      _id: currentPatient['_id']
+    }
+    for(let key in req.body) {
+      newDetails[key] = req.body[key]
+    }
+    Patient.replaceOne(currentPatient, newDetails, (err, raw) => {
+      if(err) console.log(err)
+    })
   })
 }
