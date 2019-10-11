@@ -1,15 +1,15 @@
 var mongoose = require('mongoose')
 
+const Patient = mongoose.model('patients')
+
 module.exports = app => {
   app.get('/api/show_all', (req, res) => {
-    const Patient = (mongoose.model('patients'))
     Patient.find({}, (err, something) => {
       res.send(something)
     }) 
   })
 
   app.get('/api/find_patient', (req, res) => {
-    const Patient = (mongoose.model('patients'))
     let queryString = []
     for(let key in req.query) {
       if(req.query[key]) queryString.push({ [key]: req.query[key] })
@@ -20,7 +20,6 @@ module.exports = app => {
   })
 
   app.post('/api/add_patient', (req, res) => {
-    const Patient = mongoose.model('patients')
     let newPatient = {}
     for(let key in req.body) {
       if(req.body[key]) newPatient[key] = req.body[key] 
@@ -29,7 +28,6 @@ module.exports = app => {
   })
 
   app.post('/api/edit_patient', async (req, res) => {
-    const Patient = mongoose.model('patients')
     const currentPatient = await Patient.findOne({ nhs_number: req.body['nhs_number'] })
     let newDetails = {
       _id: currentPatient['_id']
@@ -40,5 +38,12 @@ module.exports = app => {
     Patient.replaceOne(currentPatient, newDetails, (err, raw) => {
       if(err) console.log(err)
     })
+  })
+
+  app.get('/api/delete_patient', (req, res) => {
+    Patient.findOneAndDelete({ _id: req.query._id }, (err, raw) => {
+      console.log(raw)
+      res.send(raw)
+    }) 
   })
 }

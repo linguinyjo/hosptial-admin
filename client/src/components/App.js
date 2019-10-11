@@ -8,6 +8,7 @@ import ShowAll from './patients/ShowAll'
 import AddPatient from './patients/AddPatient'
 import FindPatient from './patients/FindPatient'
 import EditPatient from './patients/EditPatient'
+import DeletePatient from './patients/DeletePatient'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 class App extends React.Component {
@@ -33,6 +34,7 @@ class App extends React.Component {
           <Route exact path="/find_patient" component={FindPatient}/>
           <Route exact path="/add_patient" component={AddPatient}/>
           <Route exact path="/edit_patient" component={EditPatient}/>
+          <Route exact path="/delete_patient" component={DeletePatient}/>
           <Route exact path="/show_all" component={ShowAll}/>
         </div>
       )

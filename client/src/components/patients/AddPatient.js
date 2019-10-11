@@ -13,7 +13,7 @@ class AddPatient extends React.Component {
     console.log(this.state.searchResult)
     return (
       <div>
-        <h1>Find patient: </h1>
+        <h1>Add patient: </h1>
         <Formik
           initialValues={{ first_name: '', last_name: '', gender: '', dob: '', email: '', nhs_number: '', }}
           // validate={values => {
