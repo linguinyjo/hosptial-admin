@@ -16,17 +16,13 @@ class AddPatient extends React.Component {
         <h1>Add patient: </h1>
         <Formik
           initialValues={{ first_name: '', last_name: '', gender: '', dob: '', email: '', nhs_number: '', }}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.email) {
-          //     errors.email = 'Required';
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = 'Invalid email address';
-          //   }
-          //   return errors;
-          // }}
+          validate={values => {
+            let errors = {};
+            if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = 'Invalid email address';
+            }
+            return errors;
+          }}
           onSubmit={async (values, { setSubmitting }) => {
             const response = await axios.post(
               '/api/add_patient', {
@@ -38,11 +34,10 @@ class AddPatient extends React.Component {
                 nhs_number: values.nhs
               })
             this.setState({searchResult: response.data})
-            setSubmitting(false)
-            // setTimeout(() => {
-            //   alert(JSON.stringify(values, null, 2));
-            //   setSubmitting(false);
-            // }, 400);
+            setTimeout(() => {
+              alert("Added the following patient: " + (JSON.stringify(values, null, 2)));
+              setSubmitting(false);
+            }, 400);
           }}
         >
           {({ isSubmitting }) => (

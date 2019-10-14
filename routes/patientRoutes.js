@@ -41,7 +41,9 @@ module.exports = app => {
   })
 
   app.get('/api/delete_patient', (req, res) => {
-    Patient.findOneAndDelete({ _id: req.query._id }, (err, raw) => {
+    let ptObj = {}
+    req.query['nhs_number'] ? ptObj['nhs_number'] = req.query['nhs_number'] : ptObj[_id] = req.query._id
+    Patient.findOneAndDelete(ptObj, (err, raw) => {
       console.log(raw)
       res.send(raw)
     }) 

@@ -1,0 +1,13 @@
+//Patient features
+-Implement redux to allow patient to be stored in global state
+-Way to generate a new NHS number for new patients
+-Store episodes and encounters as data for each patient
+
+//Scheduling
+-a calendar to show all clinics
+-a database of doctors assigned to each clinic speciality
+-the abitlity to schedule patients in to the clinics and have that information stored as part of their episode
+
+//Server and infrastructure
+-Deploy using docker
+-Host using AWS

@@ -13,17 +13,13 @@ class EditPatient extends React.Component {
         <h3>Edit a patient</h3>
         <Formik
           initialValues={{ nhs_number: '', }}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.email) {
-          //     errors.email = 'Required';
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = 'Invalid email address';
-          //   }
-          //   return errors;
-          // }}
+          validate={values => {
+            let errors = {};
+            if(values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = 'Invalid email address';
+            }
+            return errors;
+          }}
           onSubmit={async (values, { setSubmitting }) => {
             const response = await axios.get(
               '/api/find_patient', {
@@ -34,10 +30,6 @@ class EditPatient extends React.Component {
               console.log(response)
             this.setState({savedPatient: response.data})
             setSubmitting(false)
-            // setTimeout(() => {
-            //   alert(JSON.stringify(values, null, 2));
-            //   setSubmitting(false);
-            // }, 400);
           }}
         >
           {({ isSubmitting }) => (
