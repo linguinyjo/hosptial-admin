@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
               <a href="/schedule"><i className="fas fa-calendar-alt fa-4x icon"></i></a>  
             </div>
             <div className="col-lg-4 col-sm-4">
-              <a href="/schedule"><i className="fas fa-procedures fa-4x icon"></i></a>  
+              <a href="/referrals"><i className="fas fa-file fa-4x icon"></i></a>  
             </div>
           </div>
           <div className='row'>
@@ -27,7 +27,6 @@ class Dashboard extends React.Component {
               <a href="/schedule"><i className="fas fa-bed fa-4x icon"></i></a>  
             </div>
           </div>
-          
         </div>
       </div>
     )

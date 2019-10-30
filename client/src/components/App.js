@@ -10,10 +10,12 @@ import AddPatient from './patients/AddPatient'
 import FindPatient from './patients/FindPatient'
 import EditPatient from './patients/EditPatient'
 import DeletePatient from './patients/DeletePatient'
+import RefHome from './referrals/refHome'
+import AddReferral from './referrals/addReferral'
+
 import { BrowserRouter, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-
+import * as actions from '../actions'
 
 class App extends React.Component {
   state = {
@@ -27,6 +29,10 @@ class App extends React.Component {
   async fetchUser() {
     const res = await axios.get('/api/current_user')
     this.setState({user: res.data})
+  }
+
+  handleClick = () => {
+    this.props.clearPatient()
   }
 
   showHome() {
@@ -45,6 +51,9 @@ class App extends React.Component {
             <Route exact path="/edit_patient" component={EditPatient}/>
             <Route exact path="/delete_patient" component={DeletePatient}/>
             <Route exact path="/show_all" component={ShowAll}/>
+            <Route exact path="/referrals" component={RefHome}/>
+            <Route exact path="/add_referral" component={AddReferral}/>
+
           </div>
         )
     }
@@ -55,7 +64,7 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <Header />
-          {this.props.currentPatient ? <PatientHeader patient={this.props.currentPatient} /> : null}
+          {this.props.currentPatient ? <PatientHeader handleClick={this.handleClick} patient={this.props.currentPatient} /> : null}
           {this.showHome()}
         </BrowserRouter>
       </div>
@@ -64,8 +73,8 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return { currentPatient: state.currentPatient}
 }
-export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps, actions)(App);
 
