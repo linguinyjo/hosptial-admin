@@ -12,17 +12,6 @@ class DeletePatient extends React.Component {
         <h3>Delete a patient</h3>
         <Formik
           initialValues={{ nhs_number: '', _id: '' }}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.email) {
-          //     errors.email = 'Required';
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = 'Invalid email address';
-          //   }
-          //   return errors;
-          // }}
           onSubmit={async (values, { setSubmitting }) => {
             const response = await axios.get(
               '/api/delete_patient', {
@@ -33,10 +22,10 @@ class DeletePatient extends React.Component {
               })
             this.setState({savedPatient: response.data})
             setSubmitting(false)
-            // setTimeout(() => {
-            //   alert(JSON.stringify(values, null, 2));
-            //   setSubmitting(false);
-            // }, 400);
+            setTimeout(() => {
+              alert("The following patient has been deleted: " + (JSON.stringify(values, null, 2)));
+              setSubmitting(false);
+            }, 400);
           }}
         >
           {({ isSubmitting }) => (

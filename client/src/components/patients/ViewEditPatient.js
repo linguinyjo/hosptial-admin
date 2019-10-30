@@ -22,7 +22,10 @@ const EditView = (props) => {
                 nhs_number: values.nhs_number   
               }
           )
-          setSubmitting(false)
+          setTimeout(() => {
+            alert("The following patient has now been edited." + (JSON.stringify(values, null, 2)));
+            setSubmitting(false);
+          }, 400);
         }}
       >
       {({ isSubmitting }) => (

@@ -21,10 +21,10 @@ class Header extends React.Component {
     const style = {color: "black", fontWeight: "bold", marginLeft: "20px", marginRight: "20px", fontSize: "1rem"}
     const displayUser = () => {
       if(this.state.user) {
-        return <li key="2"><a href="/api/logout" style={style}>Logout</a></li>
+        return <div key="2"><a href="/api/logout" style={style}>Logout</a></div>
       }
       else {
-        return <li><a href="/auth/google" style={style}>Login</a></li>
+        return <div><a href="/auth/google" style={style}>Login</a></div>
       }
     }
 
@@ -34,10 +34,11 @@ class Header extends React.Component {
           <Navbar.Brand href={this.state.user ? '/dashboard' : '/'}>
             Hospital Administration System 1.0
           </Navbar.Brand>
-          <Nav style={{testAlign: "right"}}>
-            {displayUser()}
-          </Nav>
-          
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              {displayUser()}
+            </Navbar.Text>
+          </Navbar.Collapse>
         </Navbar>
       </div>
     )

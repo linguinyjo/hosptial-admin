@@ -1,32 +1,45 @@
 import React from 'react';
 import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
+
 
 class FindPatient extends React.Component {
   constructor(){
     super()
     this.state = {
-      searchResult: null
+      searchResult: null,
+      storedPatient: null
     }
   }
+
+  storePatient = () => {
+    const { first_name, last_name, gender, dob, nhs_number } = this.state.searchResult[0]
+    this.props.savePatient(
+      {
+        "First Name": first_name,
+        "Last Name": last_name,
+        "Gender": gender,
+        "Date of Birth": dob,
+        "nhs number": nhs_number
+      }
+    )
+  }
+
   render() {
-    console.log(this.state.searchResult)
     return (
       <div>
         <h1>Find patient: </h1>
         <Formik
           initialValues={{ first_name: '', last_name: '', gender: '', dob: '', email: '', nhs_number: '', }}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.email) {
-          //     errors.email = 'Required';
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = 'Invalid email address';
-          //   }
-          //   return errors;
-          // }}
+          validate={values => {
+            let errors = {};
+            if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = 'Invalid email address';
+            }
+            return errors;
+          }}
           onSubmit={async (values, { setSubmitting }) => {
             const response = await axios.get(
               '/api/find_patient', {
@@ -40,11 +53,10 @@ class FindPatient extends React.Component {
                 }
               })
             this.setState({searchResult: response.data})
-            setSubmitting(false)
-            // setTimeout(() => {
-            //   alert(JSON.stringify(values, null, 2));
-            //   setSubmitting(false);
-            // }, 400);
+            setTimeout(() => {
+              alert("Hello: " + (JSON.stringify(values, null, 2)));
+              setSubmitting(false);
+            }, 400);
           }}
         >
           {({ isSubmitting }) => (
@@ -68,9 +80,13 @@ class FindPatient extends React.Component {
           )}
         </Formik>
         <div>{this.state.searchResult ? JSON.stringify(this.state.searchResult) : null }</div>
+        <button onClick={this.storePatient}>Load Patient</button>
       </div>
     )
   }
 }
-  
-export default FindPatient;
+ 
+function mapStateToProps(state) {
+  return { currentPatient: state.currentPatient }
+}
+export default connect(mapStateToProps, actions) (FindPatient);
