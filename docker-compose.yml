@@ -1,11 +1,16 @@
 version: '3'
 services: 
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
   api:
     build:
       dockerfile: Dockerfile.dev
       context: ./server
-    ports:
-      - "5000:5000"
     volumes:
       - /app/node_modules #leave this folder as is
       - ./server:/app #anytime our app tries to access anything inside /app it will be redirected to the server directory (except for node_modules)
@@ -13,8 +18,6 @@ services:
       build:
         dockerfile: Dockerfile.dev
         context: ./client
-      ports:
-        - "3000:3000"
       volumes:
         - /app/node_modules
-        - ./client:/app
+        - ./client:/app 

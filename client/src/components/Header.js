@@ -31,7 +31,7 @@ class Header extends React.Component {
     return (
       <div>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href={this.state.user ? '/dashboard' : '/'}>
+          <Navbar.Brand href={this.state.user ? '/dashboard' : '/dashboard'}>
             Hospital Administration System 1.0
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
