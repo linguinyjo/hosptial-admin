@@ -9,7 +9,10 @@ var mongoose = require('mongoose')
 require('./services/passport')
 require('./models/users')
 
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true})
+const mongo = keys.mongoURI || mongoURI
+const cookie = keys.cookieKey || cookieKey
+
+mongoose.connect(mongo, {useNewUrlParser: true})
 
 const app = express()
 
@@ -18,7 +21,7 @@ app.use(bodyParser.json())
 
 app.use(cookieSession({ 
   maxAge: 30 * 24 * 60 * 60 * 1000,
-  keys: [keys.cookieKey] 
+  keys: [cookie] 
 }))
 
 app.use(passport.initialize())
