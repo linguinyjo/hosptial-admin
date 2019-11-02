@@ -1,5 +1,5 @@
 const express = require('express')
-const keys = require('./config/keys')
+//const keys = require('./config/keys')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const passport = require('passport')
@@ -9,10 +9,10 @@ var mongoose = require('mongoose')
 require('./services/passport')
 require('./models/users')
 
-const mongo = keys.mongoURI || mongoURI
-const cookie = keys.cookieKey || cookieKey
+//const mongo = keys.mongoURI || mongoURI
+//const cookie = keys.cookieKey || cookieKey
 
-mongoose.connect(mongo, {useNewUrlParser: true})
+mongoose.connect(mongoURI, {useNewUrlParser: true})
 
 const app = express()
 
@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 
 app.use(cookieSession({ 
   maxAge: 30 * 24 * 60 * 60 * 1000,
-  keys: [cookie] 
+  keys: [cookieKey] 
 }))
 
 app.use(passport.initialize())
