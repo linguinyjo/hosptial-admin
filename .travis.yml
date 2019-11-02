@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t linguinyjo/hospital-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true linguinyjo/hospital-test npm test
+
+after_success:
+  - docker build -t linguinyjo/hospital-client ./client
+  - docker build -t linguinyjo/hospital-nginx ./nginx
+  - docker build -t linguinyjo/hospital-server ./server
+  #log in to the docker ci and push to docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  
+  - docker push linguinyjo/hospital-client
+  - docker push linguinyjo/hospital-nginx
+  - docker push linguinyjo/hospital-server
+  
