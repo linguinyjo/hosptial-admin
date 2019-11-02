@@ -36,7 +36,7 @@ class App extends React.Component {
   }
 
   showHome() {
-    switch(this.state.user) {
+    switch(true) {
       case(null):
         return null
       case false:
