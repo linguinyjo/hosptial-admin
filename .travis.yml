@@ -14,8 +14,23 @@ after_success:
   - docker build -t linguinyjo/hospital-server ./server
   #log in to the docker ci and push to docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  
   - docker push linguinyjo/hospital-client
   - docker push linguinyjo/hospital-nginx
   - docker push linguinyjo/hospital-server
   
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "hospital-admin"
+  env: "hospital-env"
+  bucket_name: "elasticbeanstalk-us-east-2-923236850340"
+  bucket_path: "hospital-admin"
+  on:
+    branch: master
+  access_key_id: 
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+
+
+    
