@@ -6,3 +6,4 @@ module.exports = function(app) {
 
 // target: 'http://localhost:5000'
 // target: 'http://hospital.com:5000'
+// 'http://192.168.99.100:5000'
