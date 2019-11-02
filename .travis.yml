@@ -23,14 +23,14 @@ deploy:
   region: "us-east-2"
   app: "hospital-admin"
   env: "HospitalAdmin-env"
-  bucket_name: "elasticbeanstalk-eu-west-2-923236850340"
+  bucket_name: "elasticbeanstalk-us-east-2-923236850340"
   bucket_path: "hospital-admin"
   on:
     branch: master
   access_key_id: 
     secure: $AWS_ACCESS_KEY
   secret_access_key:
-    secure: "$AWS_SECRET_KEY"
+    secure: $AWS_SECRET_KEY
 
 
     
